@@ -6,4 +6,4 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public record EclipseDto(UUID id, LocalDate date) {}
+public record EclipseDto(UUID id, LocalDate date, String type) {}

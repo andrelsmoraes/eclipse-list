@@ -9,6 +9,6 @@ public record CreateEclipseUseCaseImpl(EclipseRepository eclipseRepository) impl
 
     @Override
     public void execute(Eclipse eclipse) {
-        eclipseRepository.save(eclipse.copy(UUID.randomUUID(), eclipse.date()));
+        eclipseRepository.save(eclipse.copy(UUID.randomUUID(), eclipse.date(), eclipse.type()));
     }
 }

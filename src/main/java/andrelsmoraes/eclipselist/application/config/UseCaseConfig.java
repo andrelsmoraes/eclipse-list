@@ -28,4 +28,9 @@ public class UseCaseConfig {
     public DeleteEclipseByIdUseCase getDeleteEclipseByIdUseCase() {
         return new DeleteEclipseByIdUseCaseImpl(eclipseRepository);
     }
+
+    @Bean
+    public ListTypeUseCase getTypeUseCase() {
+        return new ListTypeUseCaseImpl();
+    }
 }

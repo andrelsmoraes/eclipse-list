@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/eclipses")
 public class EclipseController {
 
     private final CreateEclipseUseCase createEclipseUseCase;

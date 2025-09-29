@@ -1,5 +1,6 @@
 package andrelsmoraes.eclipselist.infrastructure.mapper;
 
+import andrelsmoraes.eclipselist.domain.model.Type;
 import andrelsmoraes.eclipselist.infrastructure.entity.EclipseEntity;
 import andrelsmoraes.eclipselist.domain.model.Eclipse;
 import org.springframework.stereotype.Component;
@@ -13,11 +14,11 @@ public class EclipseDataMapper {
 
     public Eclipse toModel(EclipseEntity entity) {
         LocalDate date = LocalDate.parse(entity.getDate(), DateTimeFormatter.ISO_DATE);
-        return new Eclipse(UUID.fromString(entity.getId()), date);
+        return new Eclipse(UUID.fromString(entity.getId()), date, Type.valueOf(entity.getType()));
     }
 
     public EclipseEntity toEntity(Eclipse eclipse) {
         String formattedDate = eclipse.date().format(DateTimeFormatter.ISO_DATE);
-        return new EclipseEntity(eclipse.id().toString(), formattedDate);
+        return new EclipseEntity(eclipse.id().toString(), formattedDate, eclipse.type().name());
     }
 }

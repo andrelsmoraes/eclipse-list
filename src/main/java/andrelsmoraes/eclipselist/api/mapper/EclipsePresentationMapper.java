@@ -1,17 +1,23 @@
 package andrelsmoraes.eclipselist.api.mapper;
 
-import andrelsmoraes.eclipselist.domain.model.Eclipse;
 import andrelsmoraes.eclipselist.api.dto.EclipseDto;
+import andrelsmoraes.eclipselist.domain.model.Eclipse;
 import org.springframework.stereotype.Component;
 
 @Component
 public class EclipsePresentationMapper {
 
+    private final TypePresentationMapper typeMapper;
+
+    public EclipsePresentationMapper(TypePresentationMapper typeMapper) {
+        this.typeMapper = typeMapper;
+    }
+
     public Eclipse toModel(EclipseDto dto) {
-        return new Eclipse(dto.id(), dto.date());
+        return new Eclipse(dto.id(), dto.date(), typeMapper.toModel(dto.type()));
     }
 
     public EclipseDto toDto(Eclipse eclipse) {
-        return new EclipseDto(eclipse.id(), eclipse.date());
+        return new EclipseDto(eclipse.id(), eclipse.date(), typeMapper.toString(eclipse.type()));
     }
 }

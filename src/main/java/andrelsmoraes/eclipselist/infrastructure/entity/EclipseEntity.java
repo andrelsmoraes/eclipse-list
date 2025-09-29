@@ -16,6 +16,7 @@ public class EclipseEntity {
 
     private String id;
     private String date;
+    private String type;
 
     @DynamoDbPartitionKey
     public String getId() {
