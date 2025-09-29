@@ -1,6 +1,10 @@
 package andrelsmoraes.eclipselist.application.config;
 
 import andrelsmoraes.eclipselist.application.service.EclipseEventProducer;
+import andrelsmoraes.eclipselist.application.usecase.data.ListMockEclipseUseCase;
+import andrelsmoraes.eclipselist.application.usecase.data.ListMockEclipseUseCaseImpl;
+import andrelsmoraes.eclipselist.application.usecase.data.ListMockRegionUseCase;
+import andrelsmoraes.eclipselist.application.usecase.data.ListMockRegionUseCaseImpl;
 import andrelsmoraes.eclipselist.application.usecase.eclipse.*;
 import andrelsmoraes.eclipselist.application.usecase.region.*;
 import andrelsmoraes.eclipselist.application.usecase.type.ListTypeUseCase;
@@ -11,6 +15,7 @@ import andrelsmoraes.eclipselist.domain.repository.RegionRepository;
 import andrelsmoraes.eclipselist.domain.repository.TypeRepository;
 import andrelsmoraes.eclipselist.infrastructure.mapper.EclipseDataMapper;
 import andrelsmoraes.eclipselist.infrastructure.repository.EclipseElasticsearchRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,6 +31,7 @@ public class UseCaseConfig {
     private final EclipseEventProducer eclipseEventProducer;
     private final EclipseDataMapper eclipseDataMapper;
     private final TypeMapper typeMapper;
+    private final ObjectMapper objectMapper;
 
     @Bean
     public CreateEclipseUseCase getCreateEclipseUseCase() {
@@ -70,5 +76,15 @@ public class UseCaseConfig {
     @Bean
     public ListTypeUseCase getTypeUseCase() {
         return new ListTypeUseCaseImpl(typeRepository);
+    }
+
+    @Bean
+    public ListMockEclipseUseCase getListMockEclipseUseCase() {
+        return new ListMockEclipseUseCaseImpl(objectMapper);
+    }
+
+    @Bean
+    public ListMockRegionUseCase getListMockRegionUseCase() {
+        return new ListMockRegionUseCaseImpl(objectMapper);
     }
 }
