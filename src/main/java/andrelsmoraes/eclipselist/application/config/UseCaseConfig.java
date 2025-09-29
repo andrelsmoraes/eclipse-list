@@ -47,6 +47,11 @@ public class UseCaseConfig {
     }
 
     @Bean
+    public ListEclipsesByTypeUseCase getListEclipsesByTypeUseCase() {
+        return new ListEclipsesByTypeUseCaseImpl(eclipseRepository);
+    }
+
+    @Bean
     public DeleteEclipseByIdUseCase getDeleteEclipseByIdUseCase() {
         return new DeleteEclipseByIdUseCaseImpl(eclipseRepository);
     }

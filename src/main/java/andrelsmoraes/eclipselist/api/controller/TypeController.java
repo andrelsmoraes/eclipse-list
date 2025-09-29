@@ -1,7 +1,7 @@
 package andrelsmoraes.eclipselist.api.controller;
 
-import andrelsmoraes.eclipselist.api.mapper.TypePresentationMapper;
 import andrelsmoraes.eclipselist.application.usecase.type.ListTypeUseCase;
+import andrelsmoraes.eclipselist.domain.mapper.TypeMapper;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,9 +13,9 @@ import java.util.List;
 public class TypeController {
 
     private final ListTypeUseCase listTypeUseCase;
-    private final TypePresentationMapper mapper;
+    private final TypeMapper mapper;
 
-    public TypeController(ListTypeUseCase listTypeUseCase, TypePresentationMapper mapper) {
+    public TypeController(ListTypeUseCase listTypeUseCase, TypeMapper mapper) {
         this.listTypeUseCase = listTypeUseCase;
         this.mapper = mapper;
     }

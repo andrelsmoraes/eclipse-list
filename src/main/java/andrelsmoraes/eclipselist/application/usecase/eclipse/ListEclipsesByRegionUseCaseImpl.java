@@ -10,6 +10,6 @@ public record ListEclipsesByRegionUseCaseImpl(EclipseRepository eclipseRepositor
 
     @Override
     public List<Eclipse> execute(UUID regionId) {
-        return eclipseRepository.findByRegionIds(regionId.toString());
+        return eclipseRepository.findByRegionIds(regionId);
     }
 }

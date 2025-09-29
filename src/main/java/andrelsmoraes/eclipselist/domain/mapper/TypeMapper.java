@@ -1,13 +1,13 @@
-package andrelsmoraes.eclipselist.api.mapper;
+package andrelsmoraes.eclipselist.domain.mapper;
 
 import andrelsmoraes.eclipselist.domain.model.Type;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TypePresentationMapper {
+public class TypeMapper {
 
-    public Type toModel(String value) {
-        return Type.valueOf(value);
+    public Type toModel(String type) {
+        return Type.valueOf(type);
     }
 
     public String toString(Type type) {

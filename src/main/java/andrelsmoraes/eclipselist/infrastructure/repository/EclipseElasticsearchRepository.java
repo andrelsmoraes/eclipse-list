@@ -10,4 +10,6 @@ import java.util.List;
 public interface EclipseElasticsearchRepository extends ElasticsearchRepository<EclipseElasticsearch, String> {
 
     List<EclipseElasticsearch> findByRegionIds(String regionId);
+
+    List<EclipseElasticsearch> findByType(String type);
 }

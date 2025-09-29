@@ -1,6 +1,8 @@
 package andrelsmoraes.eclipselist.infrastructure.repository;
 
+import andrelsmoraes.eclipselist.domain.mapper.TypeMapper;
 import andrelsmoraes.eclipselist.domain.model.Eclipse;
+import andrelsmoraes.eclipselist.domain.model.Type;
 import andrelsmoraes.eclipselist.domain.repository.EclipseRepository;
 import andrelsmoraes.eclipselist.infrastructure.entity.EclipseEntity;
 import andrelsmoraes.eclipselist.infrastructure.mapper.EclipseDataMapper;
@@ -10,28 +12,32 @@ import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 public class EclipseRepositoryImpl implements EclipseRepository {
 
     private final DynamoDbTable<EclipseEntity> dynamoDbTable;
     private final EclipseElasticsearchRepository elasticsearchRepository;
-    private final EclipseDataMapper mapper;
+    private final EclipseDataMapper eclipseMapper;
+    private final TypeMapper typeMapper;
 
     public EclipseRepositoryImpl(
             DynamoDbEnhancedClient dynamoDbEnhancedClient,
             EclipseElasticsearchRepository elasticsearchRepository,
-            EclipseDataMapper mapper
+            EclipseDataMapper eclipseMapper,
+            TypeMapper typeMapper
     ) {
         this.dynamoDbTable = dynamoDbEnhancedClient.table("Eclipse", TableSchema.fromBean(EclipseEntity.class));
         this.elasticsearchRepository = elasticsearchRepository;
-        this.mapper = mapper;
+        this.eclipseMapper = eclipseMapper;
+        this.typeMapper = typeMapper;
     }
 
     @Override
     public void save(Eclipse eclipse) {
-        dynamoDbTable.putItem(mapper.toEntity(eclipse));
-        elasticsearchRepository.save(mapper.toElasticsearch(eclipse));
+        dynamoDbTable.putItem(eclipseMapper.toEntity(eclipse));
+        elasticsearchRepository.save(eclipseMapper.toElasticsearch(eclipse));
     }
 
     @Override
@@ -39,7 +45,7 @@ public class EclipseRepositoryImpl implements EclipseRepository {
         return dynamoDbTable.scan()
                 .items()
                 .stream()
-                .map(mapper::toModel)
+                .map(eclipseMapper::toModel)
                 .toList();
     }
 
@@ -50,9 +56,16 @@ public class EclipseRepositoryImpl implements EclipseRepository {
     }
 
     @Override
-    public List<Eclipse> findByRegionIds(String regionId) {
-        return elasticsearchRepository.findByRegionIds(regionId)
-                .stream().map(mapper::toModel)
+    public List<Eclipse> findByRegionIds(UUID regionId) {
+        return elasticsearchRepository.findByRegionIds(regionId.toString())
+                .stream().map(eclipseMapper::toModel)
+                .toList();
+    }
+
+    @Override
+    public List<Eclipse> findByType(Type type) {
+        return elasticsearchRepository.findByType(typeMapper.toString(type))
+                .stream().map(eclipseMapper::toModel)
                 .toList();
     }
 }
