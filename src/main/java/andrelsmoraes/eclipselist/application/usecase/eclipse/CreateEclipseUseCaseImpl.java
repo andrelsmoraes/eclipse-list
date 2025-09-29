@@ -1,7 +1,6 @@
 package andrelsmoraes.eclipselist.application.usecase.eclipse;
 
 import andrelsmoraes.eclipselist.application.service.EclipseEventProducer;
-import andrelsmoraes.eclipselist.application.usecase.data.ListMockRegionUseCaseImpl;
 import andrelsmoraes.eclipselist.domain.model.Eclipse;
 import andrelsmoraes.eclipselist.domain.repository.EclipseRepository;
 import org.slf4j.Logger;

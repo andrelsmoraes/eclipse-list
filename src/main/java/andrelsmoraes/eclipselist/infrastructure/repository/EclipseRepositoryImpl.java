@@ -22,7 +22,6 @@ public class EclipseRepositoryImpl implements EclipseRepository {
 
     public EclipseRepositoryImpl(
             DynamoDbEnhancedClient dynamoDbEnhancedClient,
-            EclipseElasticsearchRepository elasticsearchRepository,
             EclipseDataMapper eclipseMapper
     ) {
         this.dynamoDbTable = dynamoDbEnhancedClient.table("Eclipse", TableSchema.fromBean(EclipseEntity.class));
