@@ -20,6 +20,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Configuration class for providing use case implementations as Spring beans.
+ * Use cases are not annotated with @Service to maintain a clean architecture approach and facilitate testing.
+ */
 @Configuration
 @RequiredArgsConstructor
 public class UseCaseConfig {

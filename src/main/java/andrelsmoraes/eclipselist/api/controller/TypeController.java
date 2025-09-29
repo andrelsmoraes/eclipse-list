@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * REST controller for managing Type entities.
+ */
 @RestController
 @RequestMapping("/types")
 public class TypeController {

@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * REST controller for managing Region entities.
+ */
 @RestController
 @RequestMapping("/regions")
 public class RegionController {

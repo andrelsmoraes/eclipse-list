@@ -9,6 +9,9 @@ import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.util.List;
 
+/**
+ * Document class representing an Eclipse in the Elasticsearch index.
+ */
 @Getter
 @Setter
 @AllArgsConstructor

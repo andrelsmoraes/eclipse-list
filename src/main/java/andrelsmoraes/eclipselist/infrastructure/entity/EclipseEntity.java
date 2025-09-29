@@ -9,6 +9,9 @@ import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbParti
 
 import java.util.List;
 
+/**
+ * Entity class representing an Eclipse in the DynamoDB table.
+ */
 @Getter
 @Setter
 @AllArgsConstructor

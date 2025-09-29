@@ -11,6 +11,9 @@ import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
 
 import java.util.List;
 
+/**
+ * Implementation of the RegionRepository interface using DynamoDB as the data store.
+ */
 @Repository
 public class RegionRepositoryImpl implements RegionRepository {
 
@@ -22,11 +25,21 @@ public class RegionRepositoryImpl implements RegionRepository {
         this.mapper = mapper;
     }
 
+    /**
+     * Saves a Region entity to the data store.
+     *
+     * @param region The Region entity to be saved.
+     */
     @Override
     public void save(Region region) {
         dynamoDbTable.putItem(mapper.toEntity(region));
     }
 
+    /**
+     * Retrieves all Region entities from the data store.
+     *
+     * @return A list of all Region entities.
+     */
     @Override
     public List<Region> listAll() {
         return dynamoDbTable.scan()
@@ -36,6 +49,11 @@ public class RegionRepositoryImpl implements RegionRepository {
                 .toList();
     }
 
+    /**
+     * Deletes a Region entity by its ID.
+     *
+     * @param id The ID of the Region entity to be deleted.
+     */
     @Override
     public void deleteById(String id) {
         dynamoDbTable.deleteItem(r -> r.key(k -> k.partitionValue(id)));

@@ -4,13 +4,19 @@ import andrelsmoraes.eclipselist.api.dto.EclipseDto;
 import andrelsmoraes.eclipselist.api.mapper.EclipsePresentationMapper;
 import andrelsmoraes.eclipselist.application.usecase.eclipse.*;
 import andrelsmoraes.eclipselist.domain.mapper.TypeMapper;
+import andrelsmoraes.eclipselist.domain.model.Eclipse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * REST controller for managing Eclipse entities.
+ */
 @RestController
 @RequestMapping("/eclipses")
+@RequiredArgsConstructor
 public class EclipseController {
 
     private final CreateEclipseUseCase createEclipseUseCase;
@@ -18,37 +24,20 @@ public class EclipseController {
     private final ListEclipsesByRegionUseCase listEclipsesByRegionUseCase;
     private final ListEclipsesByTypeUseCase listEclipsesByTypeUseCase;
     private final DeleteEclipseByIdUseCase deleteEclipseByIdUseCase;
-    private final EclipsePresentationMapper eclipsePresentationMapper;
+    private final EclipsePresentationMapper eclipseMapper;
     private final TypeMapper typeMapper;
 
-    public EclipseController(
-            CreateEclipseUseCase createEclipseUseCase,
-            ListAllEclipsesUseCase listAllEclipsesUseCase,
-            ListEclipsesByRegionUseCase listEclipsesByRegionUseCase,
-            ListEclipsesByTypeUseCase listEclipsesByTypeUseCase,
-            DeleteEclipseByIdUseCase deleteEclipseByIdUseCase,
-            EclipsePresentationMapper eclipsePresentationMapper,
-            TypeMapper typeMapper
-    ) {
-        this.createEclipseUseCase = createEclipseUseCase;
-        this.listAllEclipsesUseCase = listAllEclipsesUseCase;
-        this.listEclipsesByRegionUseCase = listEclipsesByRegionUseCase;
-        this.listEclipsesByTypeUseCase = listEclipsesByTypeUseCase;
-        this.deleteEclipseByIdUseCase = deleteEclipseByIdUseCase;
-        this.eclipsePresentationMapper = eclipsePresentationMapper;
-        this.typeMapper = typeMapper;
-    }
-
     @PostMapping
-    public void create(@RequestBody EclipseDto dto) {
-        createEclipseUseCase.execute(eclipsePresentationMapper.toModel(dto));
+    public EclipseDto create(@RequestBody EclipseDto dto) {
+        Eclipse eclipse = createEclipseUseCase.execute(eclipseMapper.toModel(dto));
+        return eclipseMapper.toDto(eclipse);
     }
 
     @GetMapping
     public List<EclipseDto> listAll() {
         return listAllEclipsesUseCase.execute()
                 .stream()
-                .map(eclipsePresentationMapper::toDto)
+                .map(eclipseMapper::toDto)
                 .toList();
     }
 
@@ -56,7 +45,7 @@ public class EclipseController {
     public List<EclipseDto> listByRegion(@RequestParam UUID regionId) {
         return listEclipsesByRegionUseCase.execute(regionId)
                 .stream()
-                .map(eclipsePresentationMapper::toDto)
+                .map(eclipseMapper::toDto)
                 .toList();
     }
 
@@ -64,7 +53,7 @@ public class EclipseController {
     public List<EclipseDto> listByType(@RequestParam String type) {
         return listEclipsesByTypeUseCase.execute(typeMapper.toModel(type))
                 .stream()
-                .map(eclipsePresentationMapper::toDto)
+                .map(eclipseMapper::toDto)
                 .toList();
     }
 

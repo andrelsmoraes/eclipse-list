@@ -7,6 +7,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
+/**
+ * Configuration class for customizing the Jackson ObjectMapper.
+ * This configuration ensures proper serialization and deserialization of Java 8 date and time types.
+ */
 @Configuration
 public class JacksonConfig {
 

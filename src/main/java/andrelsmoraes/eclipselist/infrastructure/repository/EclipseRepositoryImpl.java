@@ -11,6 +11,9 @@ import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
 
 import java.util.List;
 
+/**
+ * Implementation of the EclipseRepository interface using DynamoDB as the data store.
+ */
 @Repository
 public class EclipseRepositoryImpl implements EclipseRepository {
 
@@ -26,11 +29,21 @@ public class EclipseRepositoryImpl implements EclipseRepository {
         this.eclipseMapper = eclipseMapper;
     }
 
+    /**
+     * Saves an Eclipse entity to the data store.
+     *
+     * @param eclipse The Eclipse entity to be saved.
+     */
     @Override
     public void save(Eclipse eclipse) {
         dynamoDbTable.putItem(eclipseMapper.toEntity(eclipse));
     }
 
+    /**
+     * Retrieves all Eclipse entities from the data store.
+     *
+     * @return A list of all Eclipse entities.
+     */
     @Override
     public List<Eclipse> listAll() {
         return dynamoDbTable.scan()
@@ -40,6 +53,11 @@ public class EclipseRepositoryImpl implements EclipseRepository {
                 .toList();
     }
 
+    /**
+     * Deletes an Eclipse entity by its ID.
+     *
+     * @param id The ID of the Eclipse entity to be deleted.
+     */
     @Override
     public void deleteById(String id) {
         dynamoDbTable.deleteItem(r -> r.key(k -> k.partitionValue(id)));

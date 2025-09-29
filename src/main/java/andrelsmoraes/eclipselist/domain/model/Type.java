@@ -1,5 +1,8 @@
 package andrelsmoraes.eclipselist.domain.model;
 
+/**
+ * Enum representing different types of Eclipses.
+ */
 public enum Type {
     SOLAR_ANNULAR,
     SOLAR_PARTIAL,

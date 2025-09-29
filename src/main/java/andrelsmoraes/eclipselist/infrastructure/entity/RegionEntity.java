@@ -7,6 +7,9 @@ import lombok.Setter;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
 
+/**
+ * Entity class representing a Region in the DynamoDB table.
+ */
 @Getter
 @Setter
 @AllArgsConstructor

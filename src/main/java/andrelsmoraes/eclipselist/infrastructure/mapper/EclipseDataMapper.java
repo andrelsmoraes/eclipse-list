@@ -12,9 +12,19 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
+/**
+ * Mapper class for converting between Eclipse domain model, entity, document, and JSON string representations.
+ */
 @Component
 public record EclipseDataMapper(ObjectMapper objectMapper) {
 
+    /**
+     * Converts an Eclipse entity to an Eclipse domain model.
+     * It is used to convert data from the database representation to the domain model.
+     *
+     * @param entity the EclipseEntity to convert
+     * @return the corresponding Eclipse domain model
+     */
     public Eclipse toModel(EclipseEntity entity) {
         LocalDate date = LocalDate.parse(entity.getDate(), DateTimeFormatter.ISO_DATE);
         return new Eclipse(
@@ -25,6 +35,13 @@ public record EclipseDataMapper(ObjectMapper objectMapper) {
         );
     }
 
+    /**
+     * Converts an Eclipse document to an Eclipse domain model.
+     * It is used to convert data from the search engine representation to the domain model.
+     *
+     * @param document the EclipseDocument to convert
+     * @return the corresponding Eclipse domain model
+     */
     public Eclipse toModel(EclipseDocument document) {
         return new Eclipse(
                 UUID.fromString(document.getId()),
@@ -34,6 +51,13 @@ public record EclipseDataMapper(ObjectMapper objectMapper) {
         );
     }
 
+    /**
+     * Converts a JSON string representation of an Eclipse to an Eclipse domain model.
+     * It is used to convert data from external sources (like files or APIs) to the domain model.
+     *
+     * @param serialized the JSON string to convert
+     * @return the corresponding Eclipse domain model
+     */
     public Eclipse toModel(String serialized) {
         try {
             return objectMapper.readValue(serialized, Eclipse.class);
@@ -42,6 +66,13 @@ public record EclipseDataMapper(ObjectMapper objectMapper) {
         }
     }
 
+    /**
+     * Converts an Eclipse domain model to an Eclipse entity.
+     * It is used to convert data from the domain model to the database representation.
+     *
+     * @param eclipse the Eclipse domain model to convert
+     * @return the corresponding EclipseEntity
+     */
     public EclipseEntity toEntity(Eclipse eclipse) {
         String formattedDate = eclipse.date().format(DateTimeFormatter.ISO_DATE);
         return new EclipseEntity(
@@ -52,6 +83,13 @@ public record EclipseDataMapper(ObjectMapper objectMapper) {
         );
     }
 
+    /**
+     * Converts an Eclipse domain model to an Eclipse document.
+     * It is used to convert data from the domain model to the search engine representation.
+     *
+     * @param eclipse the Eclipse domain model to convert
+     * @return the corresponding EclipseDocument
+     */
     public EclipseDocument toDocument(Eclipse eclipse) {
         String formattedDate = eclipse.date().format(DateTimeFormatter.ISO_DATE);
         return new EclipseDocument(
@@ -62,6 +100,13 @@ public record EclipseDataMapper(ObjectMapper objectMapper) {
         );
     }
 
+    /**
+     * Converts a JSON string representation of an Eclipse to an Eclipse document.
+     * It is used to convert data from external sources (like files or APIs) to the search engine representation.
+     *
+     * @param serialized the JSON string to convert
+     * @return the corresponding EclipseDocument
+     */
     public EclipseDocument toDocument(String serialized) {
         Eclipse eclipse = toModel(serialized);
         String formattedDate = eclipse.date().format(DateTimeFormatter.ISO_DATE);
@@ -73,6 +118,13 @@ public record EclipseDataMapper(ObjectMapper objectMapper) {
         );
     }
 
+    /**
+     * Converts an Eclipse domain model to its JSON string representation.
+     * It is used to convert data from the domain model to a format suitable for external sources (like files or APIs).
+     *
+     * @param eclipse the Eclipse domain model to convert
+     * @return the JSON string representation of the Eclipse
+     */
     public String toString(Eclipse eclipse) {
         try {
             return objectMapper.writeValueAsString(eclipse);
