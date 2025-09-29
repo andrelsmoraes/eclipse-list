@@ -1,4 +1,4 @@
-package andrelsmoraes.eclipselist.infrastructure.entity;
+package andrelsmoraes.eclipselist.infrastructure.document;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document(indexName = "eclipses")
-public class EclipseElasticsearch {
+public class EclipseDocument {
 
     @Id
     private String id;

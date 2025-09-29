@@ -8,7 +8,9 @@ import andrelsmoraes.eclipselist.application.usecase.eclipse.CreateEclipseUseCas
 import andrelsmoraes.eclipselist.application.usecase.region.CreateRegionUseCase;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +23,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/data")
+@RequiredArgsConstructor
+@Profile("dev")
 public class DataController {
 
     private final CreateEclipseUseCase createEclipseUseCase;
@@ -34,20 +38,6 @@ public class DataController {
 
     @Value("classpath:data/eclipses.json")
     private Resource eclipsesFile;
-
-    public DataController(
-            CreateEclipseUseCase createEclipseUseCase,
-            CreateRegionUseCase createRegionUseCase,
-            ObjectMapper objectMapper,
-            RegionPresentationMapper regionMapper,
-            EclipsePresentationMapper eclipseMapper
-    ) {
-        this.createEclipseUseCase = createEclipseUseCase;
-        this.createRegionUseCase = createRegionUseCase;
-        this.objectMapper = objectMapper;
-        this.regionMapper = regionMapper;
-        this.eclipseMapper = eclipseMapper;
-    }
 
     @PostMapping("/populate")
     public ResponseEntity<String> populateData() {

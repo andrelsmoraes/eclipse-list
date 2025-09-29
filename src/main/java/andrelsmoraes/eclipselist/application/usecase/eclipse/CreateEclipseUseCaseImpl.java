@@ -1,11 +1,15 @@
 package andrelsmoraes.eclipselist.application.usecase.eclipse;
 
+import andrelsmoraes.eclipselist.application.service.EclipseEventProducer;
 import andrelsmoraes.eclipselist.domain.model.Eclipse;
 import andrelsmoraes.eclipselist.domain.repository.EclipseRepository;
 
 import java.util.UUID;
 
-public record CreateEclipseUseCaseImpl(EclipseRepository eclipseRepository) implements CreateEclipseUseCase {
+public record CreateEclipseUseCaseImpl(
+        EclipseRepository eclipseRepository,
+        EclipseEventProducer eventProducer
+) implements CreateEclipseUseCase {
 
     @Override
     public void execute(Eclipse eclipse) {
@@ -17,5 +21,6 @@ public record CreateEclipseUseCaseImpl(EclipseRepository eclipseRepository) impl
                         eclipse.regionIds()
                 )
         );
+        eventProducer.sendEclipseCreationEvent(eclipse);
     }
 }
