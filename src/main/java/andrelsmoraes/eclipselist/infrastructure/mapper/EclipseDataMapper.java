@@ -2,6 +2,7 @@ package andrelsmoraes.eclipselist.infrastructure.mapper;
 
 import andrelsmoraes.eclipselist.domain.model.Eclipse;
 import andrelsmoraes.eclipselist.domain.model.Type;
+import andrelsmoraes.eclipselist.infrastructure.entity.EclipseElasticsearch;
 import andrelsmoraes.eclipselist.infrastructure.entity.EclipseEntity;
 import org.springframework.stereotype.Component;
 
@@ -22,6 +23,15 @@ public class EclipseDataMapper {
         );
     }
 
+    public Eclipse toModel(EclipseElasticsearch elasticsearch) {
+        return new Eclipse(
+                UUID.fromString(elasticsearch.getId()),
+                LocalDate.parse(elasticsearch.getDate(), DateTimeFormatter.ISO_DATE),
+                Type.valueOf(elasticsearch.getType()),
+                elasticsearch.getRegionIds().stream().map(UUID::fromString).toList()
+        );
+    }
+
     public EclipseEntity toEntity(Eclipse eclipse) {
         String formattedDate = eclipse.date().format(DateTimeFormatter.ISO_DATE);
         return new EclipseEntity(
@@ -31,4 +41,15 @@ public class EclipseDataMapper {
                 eclipse.regionIds().stream().map(UUID::toString).toList()
         );
     }
+
+    public EclipseElasticsearch toElasticsearch(Eclipse eclipse) {
+        String formattedDate = eclipse.date().format(DateTimeFormatter.ISO_DATE);
+        return new EclipseElasticsearch(
+                eclipse.id().toString(),
+                formattedDate,
+                eclipse.type().name(),
+                eclipse.regionIds().stream().map(UUID::toString).toList()
+        );
+    }
+
 }

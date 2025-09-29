@@ -10,4 +10,6 @@ public interface EclipseRepository {
     List<Eclipse> listAll();
 
     void deleteById(String id);
+
+    List<Eclipse> findByRegionIds(String regionId);
 }

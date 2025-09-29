@@ -7,6 +7,7 @@ import andrelsmoraes.eclipselist.application.usecase.type.ListTypeUseCaseImpl;
 import andrelsmoraes.eclipselist.domain.repository.EclipseRepository;
 import andrelsmoraes.eclipselist.domain.repository.RegionRepository;
 import andrelsmoraes.eclipselist.domain.repository.TypeRepository;
+import andrelsmoraes.eclipselist.infrastructure.repository.EclipseElasticsearchRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,11 +15,18 @@ import org.springframework.context.annotation.Configuration;
 public class UseCaseConfig {
 
     private final EclipseRepository eclipseRepository;
+    private final EclipseElasticsearchRepository eclipseElasticsearchRepository;
     private final RegionRepository regionRepository;
     private final TypeRepository typeRepository;
 
-    public UseCaseConfig(EclipseRepository eclipseRepository, RegionRepository regionRepository, TypeRepository typeRepository) {
+    public UseCaseConfig(
+            EclipseRepository eclipseRepository,
+            EclipseElasticsearchRepository eclipseElasticsearchRepository,
+            RegionRepository regionRepository,
+            TypeRepository typeRepository
+    ) {
         this.eclipseRepository = eclipseRepository;
+        this.eclipseElasticsearchRepository = eclipseElasticsearchRepository;
         this.regionRepository = regionRepository;
         this.typeRepository = typeRepository;
     }
@@ -29,8 +37,13 @@ public class UseCaseConfig {
     }
 
     @Bean
-    public ListEclipseUseCase getListEclipseUseCase() {
-        return new ListEclipseUseCaseImpl(eclipseRepository);
+    public ListAllEclipsesUseCase getListEclipsesUseCase() {
+        return new ListAllEclipsesUseCaseImpl(eclipseRepository);
+    }
+
+    @Bean
+    public ListEclipsesByRegionUseCase getListEclipsesByRegionUseCase() {
+        return new ListEclipsesByRegionUseCaseImpl(eclipseRepository);
     }
 
     @Bean

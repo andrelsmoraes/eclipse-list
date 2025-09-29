@@ -5,7 +5,7 @@ import andrelsmoraes.eclipselist.domain.repository.EclipseRepository;
 
 import java.util.List;
 
-public record ListEclipseUseCaseImpl(EclipseRepository eclipseRepository) implements ListEclipseUseCase {
+public record ListAllEclipsesUseCaseImpl(EclipseRepository eclipseRepository) implements ListAllEclipsesUseCase {
 
     @Override
     public List<Eclipse> execute() {
