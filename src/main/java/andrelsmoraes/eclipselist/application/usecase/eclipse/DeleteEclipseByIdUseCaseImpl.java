@@ -1,4 +1,4 @@
-package andrelsmoraes.eclipselist.application.service;
+package andrelsmoraes.eclipselist.application.usecase.eclipse;
 
 import andrelsmoraes.eclipselist.domain.repository.EclipseRepository;
 

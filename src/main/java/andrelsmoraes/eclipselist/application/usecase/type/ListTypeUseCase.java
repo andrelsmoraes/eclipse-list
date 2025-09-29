@@ -1,4 +1,4 @@
-package andrelsmoraes.eclipselist.application.service;
+package andrelsmoraes.eclipselist.application.usecase.type;
 
 import andrelsmoraes.eclipselist.domain.model.Type;
 

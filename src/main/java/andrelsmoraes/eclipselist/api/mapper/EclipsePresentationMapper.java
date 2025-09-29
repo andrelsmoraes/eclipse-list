@@ -14,10 +14,10 @@ public class EclipsePresentationMapper {
     }
 
     public Eclipse toModel(EclipseDto dto) {
-        return new Eclipse(dto.id(), dto.date(), typeMapper.toModel(dto.type()));
+        return new Eclipse(dto.id(), dto.date(), typeMapper.toModel(dto.type()), dto.regionIds());
     }
 
     public EclipseDto toDto(Eclipse eclipse) {
-        return new EclipseDto(eclipse.id(), eclipse.date(), typeMapper.toString(eclipse.type()));
+        return new EclipseDto(eclipse.id(), eclipse.date(), typeMapper.toString(eclipse.type()), eclipse.regionIds());
     }
 }

@@ -6,23 +6,25 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
-
-import java.util.List;
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSortKey;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @DynamoDbBean
-public class EclipseEntity {
+public class EclipseRegionEntity {
 
-    private String id;
-    private String date;
-    private String type;
-    private List<String> regionIds;
+    private String eclipseId;
+    private String regionId;
 
     @DynamoDbPartitionKey
-    public String getId() {
-        return id;
+    public String getEclipseId() {
+        return eclipseId;
+    }
+
+    @DynamoDbSortKey
+    public String getRegion() {
+        return regionId;
     }
 }

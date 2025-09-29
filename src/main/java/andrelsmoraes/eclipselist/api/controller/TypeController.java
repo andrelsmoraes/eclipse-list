@@ -1,7 +1,7 @@
 package andrelsmoraes.eclipselist.api.controller;
 
 import andrelsmoraes.eclipselist.api.mapper.TypePresentationMapper;
-import andrelsmoraes.eclipselist.application.service.ListTypeUseCase;
+import andrelsmoraes.eclipselist.application.usecase.type.ListTypeUseCase;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

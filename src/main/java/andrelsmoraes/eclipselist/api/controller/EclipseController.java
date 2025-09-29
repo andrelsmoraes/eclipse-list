@@ -2,9 +2,9 @@ package andrelsmoraes.eclipselist.api.controller;
 
 import andrelsmoraes.eclipselist.api.dto.EclipseDto;
 import andrelsmoraes.eclipselist.api.mapper.EclipsePresentationMapper;
-import andrelsmoraes.eclipselist.application.service.CreateEclipseUseCase;
-import andrelsmoraes.eclipselist.application.service.DeleteEclipseByIdUseCase;
-import andrelsmoraes.eclipselist.application.service.ListEclipseUseCase;
+import andrelsmoraes.eclipselist.application.usecase.eclipse.CreateEclipseUseCase;
+import andrelsmoraes.eclipselist.application.usecase.eclipse.DeleteEclipseByIdUseCase;
+import andrelsmoraes.eclipselist.application.usecase.eclipse.ListEclipseUseCase;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

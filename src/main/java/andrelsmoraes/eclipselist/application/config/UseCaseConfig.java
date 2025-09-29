@@ -1,7 +1,12 @@
 package andrelsmoraes.eclipselist.application.config;
 
-import andrelsmoraes.eclipselist.application.service.*;
+import andrelsmoraes.eclipselist.application.usecase.eclipse.*;
+import andrelsmoraes.eclipselist.application.usecase.region.*;
+import andrelsmoraes.eclipselist.application.usecase.type.ListTypeUseCase;
+import andrelsmoraes.eclipselist.application.usecase.type.ListTypeUseCaseImpl;
 import andrelsmoraes.eclipselist.domain.repository.EclipseRepository;
+import andrelsmoraes.eclipselist.domain.repository.RegionRepository;
+import andrelsmoraes.eclipselist.domain.repository.TypeRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,9 +14,13 @@ import org.springframework.context.annotation.Configuration;
 public class UseCaseConfig {
 
     private final EclipseRepository eclipseRepository;
+    private final RegionRepository regionRepository;
+    private final TypeRepository typeRepository;
 
-    public UseCaseConfig(EclipseRepository eclipseRepository) {
+    public UseCaseConfig(EclipseRepository eclipseRepository, RegionRepository regionRepository, TypeRepository typeRepository) {
         this.eclipseRepository = eclipseRepository;
+        this.regionRepository = regionRepository;
+        this.typeRepository = typeRepository;
     }
 
     @Bean
@@ -30,7 +39,22 @@ public class UseCaseConfig {
     }
 
     @Bean
+    public CreateRegionUseCase getCreateRegionUseCase() {
+        return new CreateRegionUseCaseImpl(regionRepository);
+    }
+
+    @Bean
+    public ListRegionUseCase getListRegionUseCase() {
+        return new ListRegionUseCaseImpl(regionRepository);
+    }
+
+    @Bean
+    public DeleteRegionByIdUseCase getDeleteRegionByIdUseCase() {
+        return new DeleteRegionByIdUseCaseImpl(regionRepository);
+    }
+
+    @Bean
     public ListTypeUseCase getTypeUseCase() {
-        return new ListTypeUseCaseImpl();
+        return new ListTypeUseCaseImpl(typeRepository);
     }
 }

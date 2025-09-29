@@ -1,4 +1,4 @@
-package andrelsmoraes.eclipselist.application.service;
+package andrelsmoraes.eclipselist.application.usecase.eclipse;
 
 import andrelsmoraes.eclipselist.domain.model.Eclipse;
 import andrelsmoraes.eclipselist.domain.repository.EclipseRepository;
@@ -9,6 +9,13 @@ public record CreateEclipseUseCaseImpl(EclipseRepository eclipseRepository) impl
 
     @Override
     public void execute(Eclipse eclipse) {
-        eclipseRepository.save(eclipse.copy(UUID.randomUUID(), eclipse.date(), eclipse.type()));
+        eclipseRepository.save(
+                eclipse.copy(
+                        UUID.randomUUID(),
+                        eclipse.date(),
+                        eclipse.type(),
+                        eclipse.regionIds()
+                )
+        );
     }
 }

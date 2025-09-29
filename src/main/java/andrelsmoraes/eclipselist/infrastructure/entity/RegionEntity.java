@@ -7,19 +7,15 @@ import lombok.Setter;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
 
-import java.util.List;
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @DynamoDbBean
-public class EclipseEntity {
+public class RegionEntity {
 
     private String id;
-    private String date;
-    private String type;
-    private List<String> regionIds;
+    private String name;
 
     @DynamoDbPartitionKey
     public String getId() {
